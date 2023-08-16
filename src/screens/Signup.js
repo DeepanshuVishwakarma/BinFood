@@ -26,13 +26,16 @@ export default function Signup() {
     // console.log(latlong)
     let [lat, long] = latlong;
     console.log(lat, long);
-    const response = await fetch("http://localhost:5000/api/auth/getlocation", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ latlong: { lat, long } }),
-    });
+    const response = await fetch(
+      "https://binfood-backend.onrender.com/api/auth/getlocation",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ latlong: { lat, long } }),
+      }
+    );
     const { location } = await response.json();
     console.log(location);
     setAddress(location);
@@ -41,20 +44,23 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/createuser", {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: credentials.name,
-        email: credentials.email,
-        password: credentials.password,
-        location: credentials.geolocation,
-      }),
-    });
+    const response = await fetch(
+      "https://binfood-backend.onrender.com/api/auth/createuser",
+      {
+        // credentials: 'include',
+        // Origin:"http://localhost:3000/login",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: credentials.name,
+          email: credentials.email,
+          password: credentials.password,
+          location: credentials.geolocation,
+        }),
+      }
+    );
     const json = await response.json();
     console.log(json);
     if (json.success) {
